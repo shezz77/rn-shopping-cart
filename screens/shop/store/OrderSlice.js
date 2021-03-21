@@ -16,7 +16,7 @@ export const orderSlice = createSlice({
       );
 
       state.orders = [...state.orders, order];
-    },
+    }
   },
 });
 

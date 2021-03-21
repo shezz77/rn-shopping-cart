@@ -37,10 +37,21 @@ export const cartSlice = createSlice({
         resetCart: state => {
             state.items = {};
             state.totalAmount = 0;
+        },
+        removeItemFromCart: (state, action) => {
+            let updatedItems = _.cloneDeep(state.items);
+            let itemSum = 0;
+            if (action.payload in updatedItems) {
+                itemSum = updatedItems[action.payload].sum;
+                delete updatedItems[action.payload];                
+            }
+            
+            state.items = updatedItems;
+            state.totalAmount = itemSum;
         }
     }
 })
 
-export const {addToCart, deleteItemFromCart, resetCart} = cartSlice.actions;
+export const { addToCart, deleteItemFromCart, resetCart, removeItemFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -9,9 +9,8 @@ import {
   TouchableNativeFeedback,
   Platform
 } from "react-native";
-import Colors from "./../../constants/Colors";
 
-const ProductItem = ({ product, onViewDetail, onAddToCart }) => {
+const ProductItem = ({ product, onSelect, children }) => {
     let TouchableCmp = TouchableOpacity;
 
     if (Platform.OS === 'android' && Platform.Version >= 29)
@@ -20,7 +19,7 @@ const ProductItem = ({ product, onViewDetail, onAddToCart }) => {
   return (
       <View style={styles.product}>
           <View style={styles.touchableView}>
-          <TouchableCmp onPress={onViewDetail} useForeground>
+          <TouchableCmp onPress={onSelect} useForeground>
               <View>
             <View style={styles.imageContainer}>
             <Image style={styles.image} source={{ uri: product.imageUrl }} />
@@ -31,12 +30,7 @@ const ProductItem = ({ product, onViewDetail, onAddToCart }) => {
             <Text style={styles.price}>${product.price.toFixed(2)}</Text>
             </View>
             <View style={styles.actions}>
-            <Button
-                color={Colors.primary}
-                title="View Details"
-                onPress={onViewDetail}
-            />
-            <Button color={Colors.accent} title="To Cart" onPress={onAddToCart} />
+              {children}
             </View>
             </View>
         </TouchableCmp>

@@ -9,6 +9,8 @@ import CartScreen from "../screens/shop/CartScreen";
 import OrderScreen from "../screens/shop/OrderScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
+import UserProductScreen from "../screens/user/UserProductScreen";
+import EditProductScreen from "../screens/user/EditProductScreen";
 
 const DETAULT_STACK_SCREEN_OPTIONS = {
   headerStyle: {
@@ -25,6 +27,7 @@ const DETAULT_STACK_SCREEN_OPTIONS = {
 
 const ProductNavigatorStack = createStackNavigator();
 const OrderNavigatorStack = createStackNavigator();
+const AdminNavigatorStack = createStackNavigator();
 
 function ProductNavigator() {
   return (
@@ -47,8 +50,17 @@ function ProductNavigator() {
 function OrderNavigator() {
   return (
     <OrderNavigatorStack.Navigator screenOptions={DETAULT_STACK_SCREEN_OPTIONS}>
-      <ProductNavigatorStack.Screen name={"Orders"} component={OrderScreen} />
+      <OrderNavigatorStack.Screen name={"Orders"} component={OrderScreen} />
     </OrderNavigatorStack.Navigator>
+  );
+}
+
+function AdminNavigator() {
+  return (
+    <AdminNavigatorStack.Navigator screenOptions={DETAULT_STACK_SCREEN_OPTIONS}>
+      <AdminNavigatorStack.Screen name={"User Products"} component={UserProductScreen} />
+      <AdminNavigatorStack.Screen name={"Edit Product"} component={EditProductScreen} />
+    </AdminNavigatorStack.Navigator>
   );
 }
 
@@ -88,6 +100,19 @@ function RootNavigator() {
           }}
           name="Order"
           component={OrderNavigator}
+        />
+         <Drawer.Screen
+          options={{
+            drawerIcon: (drawerConfig) => (
+              <Ionicons
+                name={Platform.OS === "android" ? "md-create" : "ios-create"}
+                size={23}
+                color={drawerConfig.tintColor}
+              />
+            ),
+          }}
+          name="Admin"
+          component={AdminNavigator}
         />
       </Drawer.Navigator>
     </NavigationContainer>
